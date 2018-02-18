@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
      ViewPager vPagerMain;
     CustomPageAdapter cpa;
+ static    double latitude;
+  static   double longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         vPagerMain=(ViewPager)findViewById(R.id.vPagerMain);
         cpa=new CustomPageAdapter(getSupportFragmentManager());
         vPagerMain.setAdapter(cpa);
-        Intent intent=new Intent(MainActivity.this,service.class);
+        Intent intent=new Intent(getApplicationContext(),service.class);
         startService(intent);
 
      }

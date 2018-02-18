@@ -26,7 +26,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double lon;
     private  static final int LOCATION_REQUEST=500;
     ArrayList<LatLng> listpoints;
-
+    MainActivity mMainActivity = new MainActivity();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +59,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        lat = 70.9682781;
-        lon = 30.4167874;
+//        lat = 77.9682781;
+//        lon = 30.4167874;
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         // Add a marker in Sydney and move the camera
-        LatLng curr = new LatLng(lat, lon);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+        LatLng curr = new LatLng(MainActivity.latitude, MainActivity.longitude);
+        Log.v("lat",MainActivity.latitude+"");
+        Log.v("lon",lon+"");
+       // mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.addMarker(new MarkerOptions().position(curr).title("Current Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(curr));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -72,23 +79,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
+           // return;
         }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
-            return;
+           // return;
         }
-        mMap.setMyLocationEnabled(true);
-        mMap.addMarker(new MarkerOptions().position(curr).title("Current Location"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(curr));
+      //  mMap.setMyLocationEnabled(true);
+
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
 //        lat= Double.parseDouble(bundle.getString("lat"));
 //        lon= Double.parseDouble(bundle.getString("lon"));
 
         //Log.d("onClick", "Button is Clicked");
-        mMap.clear();
+      //  mMap.clear();
         String Restaurant="restaurant";
         String url = getUrl(lat, lon, Restaurant);
         Object[] DataTransfer = new Object[2];
@@ -115,5 +121,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.setMyLocationEnabled(true); }
                 break;
         }
+    }
+    public  void getLocation(double lat,double lon)
+    {
+       this.lat=lat;
+       this.lon=lon;
     }
 }

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -84,6 +85,10 @@ public class get_number extends AsyncTask<String,Void,String> {
             double longi=78.9683059;
             double x= Double.parseDouble(output2[0]);
             double y= Double.parseDouble(output3[0]);
+            MainActivity.latitude=x;
+            MainActivity.longitude=y;
+
+
             if(counter<=foo&&((Math.abs(lat-x))<10.0000)&&((Math.abs(longi-y))<10.0000))
             {
                 NotificationCompat.Builder notification;
